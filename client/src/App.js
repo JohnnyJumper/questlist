@@ -28,6 +28,7 @@ class App extends Component {
 		if (typeof this.state.user === "undefined") return 0;
 		return 1;
 	}
+	
 	render() {
 		return (
 				<Routes auth={{loginUser: this.setUser, logoutUser: this.logoutUser, isLogged: this.isLogged}}/>

@@ -11,13 +11,14 @@ const passportSetup = require('./config/passport-config');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const cors = require('cors');
+const graphqlHTTP = require('express-graphql');
 
+const schema = require('./models/graphql-schema');
 mongoose.connect(url, {
     useNewUrlParser: true
 }, () => console.log('connected to db'));
 
 app.use(cors());
-// app.use('/auth', function(req, res, next) { res.header("Access-Control-Allow-Origin", "*"); res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); next(); }); 
 
 app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
@@ -30,6 +31,10 @@ app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
+app.use('/graphql', graphqlHTTP({
+    schema,
+    graphiql: true
+}))
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 

@@ -6,8 +6,6 @@
 
 .mainContainer {
     background-image: linear-gradient(to bottom,#FCB97D, #E2D4B7 );
-    /* color: "#41658A"; */
-    /* background-image: linear-gradient(to bottom,#E2D4B7, #F4F2F3 ); */
     height: 100%;
     box-shadow: 0 0 32px rgb(40, 40, 40, 0.5);
 }
@@ -22,7 +20,7 @@
 
 .page-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     height: 100%;
@@ -43,8 +41,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 500px;
     box-shadow: 0 0 32px rgb(98, 134, 117);
+    margin: 10px;
+    padding: 16px;
 }
 
 .profile-picture {

@@ -11,7 +11,7 @@ router.get('/google', passport.authenticate('google', {
 }))
 
 router.get('/google/redirect', passport.authenticate('google') ,(req, res) => {
-    console.log('reached redirect');
+    console.log('reached redirect ', req.user);
     // return res.header("Access-Control-Allow-Origin", "*").json(req.user.id);
     res.redirect(`http://localhost:3000/logging/${req.user.id}`);
 });

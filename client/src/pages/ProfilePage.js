@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import {Redirect} from 'react-router-dom';
+import TodoList from './components/todo-list';
+import Statistics from './components/statistic';
 
 export default class ProfilePage extends Component {
 
@@ -12,7 +15,11 @@ export default class ProfilePage extends Component {
 	}
 
 	async componentDidMount() {
-		if (!this.props.isLogged()) return this.props.history.push('/');
+		if (!this.props.isLogged()) {
+			console.log('%cgetting out of here! are not allowed', 'color:red;');
+			const {history} = this.props;
+			return history.push('/');
+		}
 			const result = await axios.get(`http://localhost:6357/api/profile/${this.state.userID}`);
 			this.setState({user: result.data}, () => console.log('this.state = ', this.state));
 	}
@@ -29,6 +36,12 @@ export default class ProfilePage extends Component {
 					<div className="profile-header">
 						<span>Welcome back {this.state.user.name}!</span>
 					</div>
+				</div>
+				<div className="profile-wrapper">
+					<Statistics />
+				</div>
+				<div className="profile-wrapper">
+					<TodoList />
 				</div>
 			</div>
 		)
