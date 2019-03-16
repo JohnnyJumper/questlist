@@ -1,12 +1,22 @@
+html, body, #app, #app>div {
+  height: 100%
+}
+
 #root {
     background-image: linear-gradient(to bottom,#FCB97D, #E2D4B7 );
     color: "#41658A";
     font-size: 1.5em;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
 }
 
 .mainContainer {
     background-image: linear-gradient(to bottom,#FCB97D, #E2D4B7 );
     height: 100%;
+    overflow-y: scroll;
+    padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
+    box-sizing: content-box; /* So the width will be 100% + 17px */
     box-shadow: 0 0 32px rgb(40, 40, 40, 0.5);
 }
 
@@ -38,6 +48,7 @@
 .profile-wrapper {
     background-color: #8FC0A9;
     display: flex;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -47,7 +58,8 @@
 }
 
 .profile-picture {
-    width: 80%;
+    width: 25%;
+    margin: auto;
 }
 
 .profile-picture img {
@@ -58,4 +70,34 @@
 
 .profile-header {
     padding: 20px;
+}
+
+.center {
+    justify-content: center;
+    align-items: center;
+}
+
+.statistics-wrapper {
+
+    width: 100%;
+}
+
+.statistics-wrapper div {
+    display: flex;
+}
+
+.statistics-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.statistics-field #arc-size {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }

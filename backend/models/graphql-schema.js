@@ -19,10 +19,19 @@ const UserType = new GraphQLObjectType({
 	fields: () => ({
 		name: {type: GraphQLString},
 		id: {type: GraphQLID},
+		picture: {type: GraphQLString},
+		email: {type: GraphQLString},
+		gender: {type: GraphQLString},
 		quests: {
 			type: new GraphQLList(QuestType),
 			resolve(parent, args) {
 				return Quests.find({userID: parent.id})
+			}
+		},
+		incompleteQuests: {
+			type: new GraphQLList(QuestType),
+			resolve(parent, args) {
+				return Quests.find({userID: parent.id, completed: false});
 			}
 		}
 	})
@@ -46,6 +55,16 @@ const QuestType = new GraphQLObjectType({
 })
 
 
+const StatisticType = new GraphQLObjectType({
+	name: 'statistic',
+	fields: () => ({
+		completed: { type: GraphQLInt },
+		incompleted: { type: GraphQLInt },
+		total: { type: GraphQLInt}
+	})
+})
+
+
 const RootQueryType = new GraphQLObjectType({
 	name: 'RootQueryType',
 	fields: {
@@ -58,16 +77,35 @@ const RootQueryType = new GraphQLObjectType({
 		user: {
 			type: UserType,
 			args: {
-				id: {type: GraphQLString}
+				id: {type: GraphQLID}
 			},
 			resolve(parent, args) {
-				return Users.findById({id: args.id});
+				return Users.findById(args.id);
 			}
 		},
 		quests: {
 			type: new GraphQLList(QuestType),
+			args: {
+				id: {type: GraphQLID}
+			},
 			resolve(parent, args) {
-				return Quests.find({})
+				return Quests.find({userID: args.id})
+			}
+		},
+		incompletedQuestsByUser: {
+			type: new GraphQLList
+		},
+		statistics: {
+			type: StatisticType,
+			args: {
+				userID: {type: GraphQLID}
+			},
+			resolve(parent, args) {
+				const {userID} = args;
+				const incompleted = Quests.count({userID, completed: false});
+				const completed = Quests.count({userID, completed:true});
+				const total = Quests.count({userID});
+				return {incompleted, completed, total};
 			}
 		}
 	}

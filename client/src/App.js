@@ -3,6 +3,11 @@ import Routes from './Routes';
 
 import './styles.css';
 
+import ApolloClient from 'apollo-boost';
+import {ApolloProvider} from 'react-apollo';
+
+const client = new ApolloClient({uri: 'http://localhost:6357/graphql'});
+
 class App extends Component {
 	constructor() {
 		super();
@@ -31,7 +36,9 @@ class App extends Component {
 	
 	render() {
 		return (
+			<ApolloProvider client={client}>
 				<Routes auth={{loginUser: this.setUser, logoutUser: this.logoutUser, isLogged: this.isLogged}}/>
+			</ApolloProvider>
 		);
 	}
 }

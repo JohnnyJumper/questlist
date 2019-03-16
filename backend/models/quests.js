@@ -7,7 +7,7 @@ const Quest = new Schema({
     type: String,
     completed: Boolean,
     description: String,
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model('quests', Quest);
 

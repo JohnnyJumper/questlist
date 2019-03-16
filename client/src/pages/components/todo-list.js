@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 
+import {Query} from 'react-apollo';
+import {Container, Row, Col} from 'reactstrap'
+
 export default class TodoList extends Component {
     render() {
         return (
