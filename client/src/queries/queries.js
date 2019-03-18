@@ -5,11 +5,6 @@ export const getProfileQuery = gpl`
         user(id: $id) {
             name
             picture
-            incompleteQuests {
-                name
-                type
-                description
-            }
         }
     }
 `;
@@ -20,6 +15,20 @@ export const getStatisticsQuery = gpl`
             completed
             incompleted
             total
+        }
+    }
+`;
+
+export const getIncompleteQuestsQuery = gpl`
+    query getIncompleteQuests($id: ID!) {
+        user(id: $id) {
+            incompleteQuests {
+                name
+                type
+                description
+                completed
+                id
+            }
         }
     }
 `;

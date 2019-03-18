@@ -44,7 +44,8 @@ const QuestType = new GraphQLObjectType({
 		type: {type: GraphQLString},
 		completed: {type: GraphQLBoolean},
 		description: {type: GraphQLString},
-		userID: {type: GraphQLID},
+        userID: {type: GraphQLID},
+        id: {type: GraphQLID},
 		user: {
 			type: UserType,
 			resolve(parent, args) {
@@ -91,9 +92,6 @@ const RootQueryType = new GraphQLObjectType({
 			resolve(parent, args) {
 				return Quests.find({userID: args.id})
 			}
-		},
-		incompletedQuestsByUser: {
-			type: new GraphQLList
 		},
 		statistics: {
 			type: StatisticType,
