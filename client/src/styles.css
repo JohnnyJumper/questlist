@@ -57,6 +57,13 @@ html, body, #app, #app>div {
     padding: 16px;
 }
 
+
+.list-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
 .profile-picture {
     width: 25%;
     margin: auto;
@@ -162,6 +169,8 @@ html, body, #app, #app>div {
 .quest-modal-description {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
+    font-size: 2em;
 }
 
 .quest-modal-options {

@@ -96,7 +96,7 @@ const RootQueryType = new GraphQLObjectType({
 		statistics: {
 			type: StatisticType,
 			args: {
-				userID: {type: GraphQLID}
+                userID: {type: GraphQLID}
 			},
 			resolve(parent, args) {
 				const {userID} = args;
@@ -126,7 +126,42 @@ const Mutation = new GraphQLObjectType({
 				let quest = new Quests({name, type, completed, description, userID});
 				return quest.save();
 			}
-		}
+        },
+        updateQuestStatus: {
+            type: QuestType,
+            args: {
+                completed: {type: GraphQLBoolean},
+                questID: {type: GraphQLID}
+            },
+            resolve(parent, args) {
+                const {completed, questID} = args;
+                return Quests.findById(questID)
+                .then(doc => {
+                    doc.completed = completed;
+                    return doc.save();
+                })
+                .catch(err => err);
+            }
+        },
+        updateQuest: {
+            type: QuestType,
+            args: {
+                questID: {type: new GraphQLNonNull(GraphQLID)},
+                completed: {type: GraphQLBoolean},
+                description: {type: GraphQLString},
+            },
+            resolve(parent, args) {
+                const {completed, description, questID} = args;
+                return Quests.findById(questID)
+                .then(doc => {
+                    if (typeof completed !== 'undefined') doc.completed = completed;
+                    if (typeof description !== 'undefined') doc.description = description;
+                    console.log(doc);
+                    return doc.save();
+                })
+                .catch(err => err);
+            }
+        }
 	}
 })
 
